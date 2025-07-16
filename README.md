@@ -10,5 +10,8 @@ The vector fields data is the csv. format files, which is stored in `PPHVecSingu
 Please run the `Dip_pole_position.py` to track the geomagnetic poles example, and run the `Typoon_trace.py` to track the typhoon centers example.
 You can also run the `noise_compare.ipynb` to test the robustness using different noise level vector fields in `PPHVecSingular\noise`.
 
+# Analyzing time-varying vector fields
+Please run the `VF_compare.py` to compute the bottleneck distance between persistence diagrams at neighboring moments, which can compare the changes of singular patterns.
+
 # Acknowledgement
 Our code for computing 1-d path homology is based on https://github.com/tianqicoding/1dPPH.
