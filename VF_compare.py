@@ -54,12 +54,10 @@ for fi in files:
         bot_dis=bottleneck_distance(dgm_old,dgm_new)
         bot.append(bot_dis)
 
-    #print('1-Was_dis = '+str(was_dis1))
     print(str(old_word)+' ——> '+ word)
     print('Bot_dis = '+str(bot_dis))
     print('**********************************')
 
-    #if count==0:
     dgm_old=dgm_new
     count+=1
     old_word=word
@@ -73,8 +71,6 @@ if bot:
     plt.xticks([i for i in range(len(bot))],word_label[1:],rotation=70)
     
     plt.ylim(0.0,2.0)
-    #plt.xlabel('PD Pair')
-    #plt.ylabel('Distance')
     plt.title('Bottleneck Distance for Khanun dataset')
     plt.legend()
     plt.show()
