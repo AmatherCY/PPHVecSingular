@@ -88,7 +88,6 @@ class persHomo:
 	def PrintCycle(self):
 		print(self.HomoCycle)
 		
-	#下面这个是最重要的函数
 	def perHom(self, t): #the function to compute persistent path homology, t is the time
 		self.Root={}
 		self.TreeEdge=set()
@@ -655,32 +654,3 @@ class persHomo:
 			file.write('\n')
 		file.close()
 		'''
-
-
-# nn=50
-# G=nx.DiGraph()
-# G.add_nodes_from(list(range(nn)))
-# E=[]
-# for i in range(nn-1):
-# 	#E.append((i, i+1))
-# 	G.add_edge(i, i+1, weight=1)
-# G.add_edge(nn-1, 0, weight=1)
-# g=persHomo(G)
-# start = timeit.default_timer()
-# g.perHom(2)
-# print(g.Root)
-# stop = timeit.default_timer()
-# g.PrintPair()
-# print('Time: ', stop - start)
-
-# G=nx.DiGraph()
-# G=nx.read_weighted_edgelist("citeseer", create_using = nx.DiGraph())
-# print(len(G.edges))
-# g=persHomo(G)
-# start = timeit.default_timer()
-# g.perHom(2)
-# stop = timeit.default_timer()
-# print('Time: ', stop - start)
-# print(len(g.TreeEdge), len(g.curG.edges), len(g.Bnd))
-# g.PrintPair()
-# g.PrintCycle()
