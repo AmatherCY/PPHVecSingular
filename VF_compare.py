@@ -24,7 +24,7 @@ from openpyxl import load_workbook
 from math import pi,atan
 import matplotlib.pyplot as plt
 
-rig='2023sl'
+rig='2023kn'
 if not os.path.exists(f'{rig}\\wfs'):
     os.makedirs(f'{rig}\\wfs')
 if not os.path.exists(f'{rig}\\bps'):
