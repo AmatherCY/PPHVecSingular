@@ -272,7 +272,7 @@ def VectorfieldtoDigraph_arc(VF,length,width,high,eps):
     #print('get matrix!')
     return max_edge
 
-rig='2023sl'
+rig='2023kn'  # or '2023sl'
 path=f'{rig}\\wfs'
 files = sorted(os.listdir(path))
 for fi in files:
