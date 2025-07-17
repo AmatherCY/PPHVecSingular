@@ -306,6 +306,7 @@ for fi in files:
     g=persHomo(G)
     max_edge=3.15
     g.perHom(max_edge)
+    np.savetxt(f"{rig}\\{word}_result\\{word}_pair.txt",np.array(g.pair),fmt='%s')
     
     e=[]
     min_cyc=[]
