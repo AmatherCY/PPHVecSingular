@@ -21,7 +21,7 @@ The vector fields data is `.csv` format files, which is stored in `PPHVecSingula
 
 # Detecting singularities
 You can run the `Dip_pole_position.py` to track the geomagnetic poles example (Results of Fig.6 in the paper). 
-And you can run the `Typoon_trace.py` to track the typhoon centers example (Results of Fig.7 in the paper).
+And you can run the `Typoon_trace.py` to track the typhoon centers example. By setting the `rig` as `2023kn` or `2023sl', the code can provides the centers of typhoon Kahnu (Fig.7 (a) in the paper) and Saola (Fig.7 (b) in the paper) respectively.
 You can also run the `noise_compare.ipynb` to test the robustness using different noise level vector fields in `PPHVecSingular\noise` (Results of Fig.9 in the paper).
 
 # Analyzing time-varying vector fields
