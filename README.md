@@ -34,6 +34,9 @@ You can also run the `noise_compare.ipynb` to test the robustness using differen
 
 # Analyzing time-varying vector fields
 After running `Typoon_trace.py` of two typhoon datasets, you can run the `VF_compare.py` to compute the bottleneck distance between persistence diagrams at neighboring moments (Results of Fig.8 in the paper), which can compare the changes of singular patterns of the wind fields.
+```bash
+python VF_compare.py
+```
 
 # Acknowledgement
 Our code for computing 1-d path homology is based on https://github.com/tianqicoding/1dPPH.
