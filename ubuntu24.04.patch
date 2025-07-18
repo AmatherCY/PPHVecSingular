@@ -1,0 +1,51 @@
+diff --git a/Dip_pole_position.py b/Dip_pole_position.py
+index 2870ddd..381aa87 100644
+--- a/Dip_pole_position.py
++++ b/Dip_pole_position.py
+@@ -274,7 +274,7 @@ def VectorfieldtoDigraph_arc(VF,length,width,high,eps):
+ 
+ 
+ rig='IGRF'
+-path=f'{rig}\\wfs'
++path=f'{rig}/wfs'
+ files = sorted(os.listdir(path))
+ for fi in files:
+     word=fi[:-4]
+@@ -364,4 +364,4 @@ for fi in files:
+ 
+         del(e[0])
+ 
+-    print('singularities:',centers)
+\ No newline at end of file
++    print('singularities:',centers)
+diff --git a/Typoon_trace.py b/Typoon_trace.py
+index a6169fd..ed4c693 100644
+--- a/Typoon_trace.py
++++ b/Typoon_trace.py
+@@ -273,7 +273,7 @@ def VectorfieldtoDigraph_arc(VF,length,width,high,eps):
+     return max_edge
+ 
+ rig='2023kn'  # or '2023sl'
+-path=f'{rig}\\wfs'
++path=f'{rig}/wfs'
+ files = sorted(os.listdir(path))
+ for fi in files:
+     word=fi[:10]
+@@ -283,7 +283,7 @@ for fi in files:
+         os.makedirs(f'{rig}\\{word}_result')
+     
+     
+-    VF= path+'\\'+fi
++    VF= path+'/'+fi
+     ls=pd.read_csv(VF,header=None).iloc[:,1]
+     ws=pd.read_csv(VF,header=None).iloc[:,2]
+     all_len=pd.read_csv(VF,header=None).shape[0]
+@@ -317,7 +317,7 @@ for fi in files:
+         if pairs[i][1]==max_edge:
+             e.append(pairs[i][0])
+ 
+-    VF=pd.read_csv(path+'\\'+fi,header=None)
++    VF=pd.read_csv(path+'/'+fi,header=None)
+     while len(e)>0:
+         i1,j1,i2,j2=find_edge(e[0])
+         w=max(mat[i1*width*high+j1*high,i2*width*high+j2*high],mat[i2*width*high+j2*high,i1*width*high+j1*high])
