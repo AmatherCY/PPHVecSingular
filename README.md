@@ -33,7 +33,7 @@ python Typoon_trace.py
 You can also run the `noise_compare.ipynb` to test the robustness using different noise level vector fields in `PPHVecSingular\noise` (Results of Fig.9 in the paper).
 
 # Analyzing time-varying vector fields
-After running `Typoon_trace.py` of two typhoon datasets, you can run the `VF_compare.py` to compute the bottleneck distance between persistence diagrams at neighboring moments (Results of Fig.8 in the paper), which can compare the changes of singular patterns of the wind fields.
+After running `Typoon_trace.py` of two typhoon datasets, you can run the `VF_compare.py` to compute the bottleneck distance between persistence diagrams at neighboring moments (Results of Fig.8 in the paper), which can compare the changes of singular patterns of the wind fields. Similarly, you can set the variable `rig` as `2023kn` or `2023sl` for testing the two typhoons.
 ```bash
 python VF_compare.py
 ```
