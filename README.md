@@ -13,6 +13,8 @@ This project requires the following Python packages:
 - networkx
 - gudhi
 
+We recommend using Visual Studio Code to run this project.
+
 ## Environments
 ### Windows (Recommended)
 Windows Users can install necessary Python packages using pip:
