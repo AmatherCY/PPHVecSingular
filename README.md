@@ -4,11 +4,26 @@
 This code is used to extract singularity locations from a discrete planar vector field using 1-dimensional persistent path homology and to analyze singular pattern changes in the time-varying vector field.
 
 # Dependencies
-``` python
+This project requires the following Python packages:
+- numpy
+- pandas
+- networkx
+- gudhi
+
+### Environments
+Windows Users can install Python packages using pip:
+```bash
 pip install numpy pandas networkx gudhi
 ```
 
-If you want to run the code under Linux, please use the attached patch `ubuntu24.04.patch`:
+For Ubuntu 24.04 Users, Due to Python environment protection ([PEP 668](https://peps.python.org/pep-0668/)), running `pip install` system-wide may result in an `externally-managed-environment` error. Please try the following method:
+
+```bash
+sudo apt update
+sudo apt install python3-numpy python3-pandas python3-networkx python3-gudhi
+```
+
+And please use the attached patch `ubuntu24.04.patch`:
 ```bash
 git apply ubuntu24.04.patch
 ```
@@ -20,12 +35,12 @@ Analyzing singular patterns in vector fields is a fundamental problem in theoret
 The vector fields data is `.csv` format files, which is stored in `PPHVecSingular\IGRF\wfs`, `PPHVecSingular\2023kn\wfs`, `PPHVecSingular\2023sl\wfs`, and `PPHVecSingular\noise`.
 
 # Detecting singularities
-You can run the `Dip_pole_position.py` to track the geomagnetic poles example (Results of Fig.6 in the paper)：
+You can run the `Dip_pole_position.py` to track the geomagnetic poles example. The code will print the positions of geomagnetic poles in Fig.6 in the paper (or more specifically, the positioning data in Table.2)：
 ```bash
 python Dip_pole_position.py
 ```
 
-And you can run the `Typoon_trace.py` to track the typhoon centers example. By setting the variable `rig` as `2023kn` or `2023sl`, the code can provides the centers of typhoon Kahnu (Fig.7 (a) in the paper) and Saola (Fig.7 (b) in the paper) respectively.
+And you can run the `Typoon_trace.py` to track the typhoon centers example. By setting the variable `rig` as `2023kn` or `2023sl`, the code will print the centers of typhoon Kahnu (Fig.7 (a) in the paper) and Saola (Fig.7 (b) in the paper) respectively (or more specifically, the positioning data in Table.3 and 4).
 ```bash
 python Typoon_trace.py
 ```
