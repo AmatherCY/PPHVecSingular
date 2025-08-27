@@ -10,13 +10,15 @@ This project requires the following Python packages:
 - networkx
 - gudhi
 
-### Environments
-Windows Users can install Python packages using pip:
+## Environments
+### Windows (Recommended)
+Windows Users can install necessary Python packages using pip:
 ```bash
 pip install numpy pandas networkx gudhi
 ```
 
-For Ubuntu 24.04 Users, Due to Python environment protection ([PEP 668](https://peps.python.org/pep-0668/)), running `pip install` system-wide may result in an `externally-managed-environment` error. Please try the following method:
+### Linux
+For Ubuntu 24.04 Users, due to Python environment protection ([PEP 668](https://peps.python.org/pep-0668/)), running `pip install` system-wide may result in an `externally-managed-environment` error. Please try the following method:
 
 ```bash
 sudo apt update
