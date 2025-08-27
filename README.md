@@ -3,6 +3,9 @@
 
 This code is used to extract singularity locations from a discrete planar vector field using 1-dimensional persistent path homology and to analyze singular pattern changes in the time-varying vector field.
 
+# Abstract
+Analyzing singular patterns in vector fields is a fundamental problem in theoretical and practical domains due to the ability of such patterns to detect the intrinsic characteristics of vector fields. In this study, we propose an approach for analyzing singular patterns from discrete planar vector fields. Our method involves converting the planar discrete vector field into a specialized digraph and computing its one-dimensional persistent path homology. By analyzing the persistence diagram, we can determine the location of singularities, and the variations of singular patterns can also be analyzed. The experimental results demonstrate the effectiveness of our method in analyzing the singular patterns of noisy real-world vector fields and measuring the variations between different vector fields.
+
 # Dependencies
 This project requires the following Python packages:
 - numpy
@@ -32,8 +35,6 @@ dos2unix ubuntu24.04.patch
 git apply ubuntu24.04.patch
 ```
 
-# Abstract
-Analyzing singular patterns in vector fields is a fundamental problem in theoretical and practical domains due to the ability of such patterns to detect the intrinsic characteristics of vector fields. In this study, we propose an approach for analyzing singular patterns from discrete planar vector fields. Our method involves converting the planar discrete vector field into a specialized digraph and computing its one-dimensional persistent path homology. By analyzing the persistence diagram, we can determine the location of singularities, and the variations of singular patterns can also be analyzed. The experimental results demonstrate the effectiveness of our method in analyzing the singular patterns of noisy real-world vector fields and measuring the variations between different vector fields.
 
 # Data
 The vector fields data is `.csv` format files, which is stored in `PPHVecSingular\IGRF\wfs`, `PPHVecSingular\2023kn\wfs`, `PPHVecSingular\2023sl\wfs`, and `PPHVecSingular\noise`.
