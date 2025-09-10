@@ -21,6 +21,9 @@ from PPH import persHomo
 import timeit
 from openpyxl import load_workbook
 from math import pi,atan
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).parent.resolve()
 
 def cos_theta(x,y):
     l_x=np.sqrt(x.dot(x))
@@ -187,7 +190,6 @@ def weight_point(listin):
     for i in range(len(ecx)):
         xi=xi+W[i]*ecx[i]
         yi=yi+W[i]*ecy[i]
-    #print(xi/Wsum,yi/Wsum)
     return xi/Wsum,yi/Wsum
 
 def compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers):
@@ -268,23 +270,23 @@ def VectorfieldtoDigraph_arc(VF,length,width,high,eps):
                     max_edge=max(max_edge,w_y)
 
     Digraph_mat=Digraph_mat.tocoo()
-    save_npz(f'{rig}\\{word}_result\\{word}_Digraph_mat.npz',Digraph_mat)
+    save_npz(SCRIPT_DIR / rig / f'{word}_result'/ f'{word}_Digraph_mat.npz',Digraph_mat)
     #print('get matrix!')
     return max_edge
 
 
 rig='IGRF'
-path=f'{rig}\\wfs'
+path= SCRIPT_DIR / rig / 'wfs'
 files = sorted(os.listdir(path))
 for fi in files:
     word=fi[:-4]
     print(word)
     locate=word[5:10]
     
-    if not os.path.exists(f'{rig}\\{word}_result'):
-        os.makedirs(f'{rig}\\{word}_result')
+    if not os.path.exists(SCRIPT_DIR / rig / f'{word}_result'):
+        os.makedirs(SCRIPT_DIR / rig / f'{word}_result')
     
-    VF= path+'/'+fi
+    VF= path / fi
 
     if locate=='south':
         lonbegin,latbegin=[133.5,-66.5]
@@ -310,10 +312,10 @@ for fi in files:
     L,W=length,width
     xbegin,ybegin=0,0
     max_edge=VectorfieldtoDigraph_arc(VF,length,width,high,10)
-    mat=load_npz(f'{rig}\\{word}_result\\{word}_Digraph_mat.npz')
+    mat=load_npz(SCRIPT_DIR / rig /f'{word}_result'/ f'{word}_Digraph_mat.npz')
     mat=mat.tolil()
 
-    G=nx.from_scipy_sparse_matrix(mat, create_using=nx.DiGraph)
+    G=nx.from_scipy_sparse_array(mat, create_using=nx.DiGraph)
     g=persHomo(G)
     max_edge=3.15
     g.perHom(max_edge)

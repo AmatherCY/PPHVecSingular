@@ -23,16 +23,14 @@ import timeit
 from openpyxl import load_workbook
 from math import pi,atan
 import matplotlib.pyplot as plt
+from pathlib import Path
+
+SCRIPT_DIR = Path(__file__).parent.resolve()
 
 rig='2023kn'
-if not os.path.exists(f'{rig}\\wfs'):
-    os.makedirs(f'{rig}\\wfs')
-if not os.path.exists(f'{rig}\\bps'):
-    os.makedirs(f'{rig}\\bps')
-if not os.path.exists(f'{rig}\\traces'):
-    os.makedirs(f'{rig}\\traces')
-if not os.path.exists(f'{rig}\\centers'):
-    os.makedirs(f'{rig}\\centers')
+if not os.path.exists(SCRIPT_DIR / rig / 'wfs'):
+    print(f"Error: path not found!")
+
 
 dgm_old=[]
 dgm_new=[]
@@ -40,13 +38,13 @@ word_label=[]
 bot=[]
 count=0
 old_word='None'
-path=f'{rig}\\wfs'
+path=SCRIPT_DIR / rig / 'wfs'
 files = sorted(os.listdir(path))
 for fi in files:
     word=fi[:10]
     word_label.append(word)
 
-    dgm_new=np.loadtxt(f"{rig}\\{word}_result\\{word}_pair.txt")
+    dgm_new=np.loadtxt(SCRIPT_DIR / rig /f"{word}_result"/f"{word}_pair.txt")
     
     if count==0:
         bot_dis=0
@@ -62,14 +60,11 @@ for fi in files:
     count+=1
     old_word=word
 
-np.savetxt(f'bot_{rig}.txt',bot)
+np.savetxt(SCRIPT_DIR / rig / f'bot_{rig}.txt',bot)
 if bot:
     plt.figure(figsize=(10,6))
-    
-
     plt.plot(bot, label='Bottleneck Distance', marker='o')
     plt.xticks([i for i in range(len(bot))],word_label[1:],rotation=70)
-    
     plt.ylim(0.0,2.0)
     plt.title('Bottleneck Distance for Khanun dataset')
     plt.legend()
