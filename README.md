@@ -16,7 +16,7 @@ This project requires the following Python packages:
 We recommend using Visual Studio Code to run this project.
 
 ## Environments
-### Windows (Recommended)
+### Windows
 Windows Users can install necessary Python packages using pip:
 ```bash
 pip install numpy pandas networkx gudhi
