@@ -30,12 +30,6 @@ sudo apt update
 sudo apt install python3-numpy python3-pandas python3-networkx python3-gudhi
 ```
 
-And please use the attached patch `ubuntu24.04.patch`:
-```bash
-sudo apt-get install dos2unix
-dos2unix ubuntu24.04.patch
-git apply ubuntu24.04.patch
-```
 
 
 # Data
