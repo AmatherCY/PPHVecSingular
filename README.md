@@ -41,7 +41,7 @@ You can run the `Dip_pole_position.py` to track the geomagnetic poles example. T
 python Dip_pole_position.py
 ```
 
-And you can run the `Typoon_trace.py` to track the typhoon centers example. By setting the variable `rig` as `2023kn` or `2023sl`, the code will print the centers of typhoon Kahnu (Fig.7 (a) in the paper) and Saola (Fig.7 (b) in the paper) respectively (or more specifically, the positioning data in Table.3 and 4).
+And you can run the `Typoon_trace.py` to track the typhoon centers example. By setting the variable `rig` as `2023kn` or `2023sl`, the code will print the centers of typhoon Kahnu (Fig.7 (a) in the paper) and Saola (Fig.7 (b) in the paper) respectively (or more specifically, the positioning data in Table.3 and 4). Notice that for complex real wind field data, this program can not only compute the typhoon's center position but also compute the positions of other existing singularities.
 ```bash
 python Typoon_trace.py
 ```
