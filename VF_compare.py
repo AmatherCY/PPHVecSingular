@@ -4,14 +4,11 @@ Compute the bottleneck distance between the persistence diagrams of the vector f
 rig: '2023sl' or '2023kn' means tracking typhoon Kanun or Saola
 '''
 import numpy as np
-import csv
 import pandas as pd 
-import collections
 from numpy import matrix
 from numpy.linalg import matrix_rank
 import networkx as nx
 import os
-import heapq
 from sympy import *
 import gudhi
 from gudhi.hera import wasserstein_distance,bottleneck_distance
@@ -20,8 +17,6 @@ from scipy.linalg import lu
 from minBasis import minBasis
 from PPH import persHomo
 import timeit
-from openpyxl import load_workbook
-from math import pi,atan
 import matplotlib.pyplot as plt
 from pathlib import Path
 

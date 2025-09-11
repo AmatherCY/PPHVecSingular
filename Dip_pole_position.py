@@ -3,15 +3,12 @@ Tracking the geomagnetic poles from vector field data
 rig: 'south' or 'north' means tracking geomagnetic south or north pole
 '''
 import numpy as np
-import csv
 import pandas as pd 
-import collections
 from numpy import matrix
 from numpy.linalg import matrix_rank
 import networkx as nx
 import matplotlib.pyplot as plt
 import os
-import heapq
 from sympy import *
 import time
 from scipy.sparse import lil_matrix,save_npz,load_npz
@@ -19,7 +16,6 @@ from scipy.linalg import lu
 from minBasis import minBasis
 from PPH import persHomo
 import timeit
-from openpyxl import load_workbook
 from math import pi,atan
 from pathlib import Path
 
@@ -192,7 +188,7 @@ def weight_point(listin):
         yi=yi+W[i]*ecy[i]
     return xi/Wsum,yi/Wsum
 
-def compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers):
+def compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers):
     flag=0
     V1=np.array([VF.iloc[v1,4],VF.iloc[v1,5],VF.iloc[v1,6]])
     V2=np.array([VF.iloc[v2,4],VF.iloc[v2,5],VF.iloc[v2,6]])
@@ -208,7 +204,16 @@ def compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers):
         bps.append((weight_point([v1,v2,v3,v4])))
         
         # the weight_point here has the coordinate of (longitude,latitude) according to the data format from PyIGRF
-        centers.append((round(eps*weight_point([v1,v2,v3,v4])[0]+lonbegin,2),round(eps*weight_point([v1,v2,v3,v4])[1]+latbegin,2)))
+        cp=(round(eps*weight_point([v1,v2,v3,v4])[0]+lonbegin,2),round(eps*weight_point([v1,v2,v3,v4])[1]+latbegin,2))
+        if cp[0]<0 and cp[1]<0:
+            cp=(str(np.abs(cp[0]))+'°W',str(np.abs(cp[1]))+'°S')
+        elif cp[0]<0 and cp[1]>0:
+            cp=(str(np.abs(cp[0]))+'°W',str(np.abs(cp[1]))+'°N')
+        elif cp[0]>0 and cp[1]>0:
+            cp=(str(np.abs(cp[0]))+'°E',str(np.abs(cp[1]))+'°N')
+        else:
+            cp=(str(np.abs(cp[0]))+'°E',str(np.abs(cp[1]))+'°S')
+        centers.append(cp)
 
 def VectorfieldtoDigraph_arc(VF,length,width,high,eps):
     VectorField=pd.read_csv(VF,header=None)
@@ -281,7 +286,7 @@ files = sorted(os.listdir(path))
 for fi in files:
     word=fi[:-4]
     print(word)
-    locate=word[5:10]
+    locate=word[:5]
     
     if not os.path.exists(SCRIPT_DIR / rig / f'{word}_result'):
         os.makedirs(SCRIPT_DIR / rig / f'{word}_result')
@@ -291,15 +296,15 @@ for fi in files:
     if locate=='south':
         lonbegin,latbegin=[133.5,-66.5]
     if locate=='north':
-        if word=='2000_north':
+        if word=='north_2000':
             lonbegin,latbegin=[-115,79]
-        if word=='2005_north':
+        if word=='north_2005':
             lonbegin,latbegin=[-125,79]
-        if word=='2010_north':
+        if word=='north_2010':
             lonbegin,latbegin=[-135,79]
-        if word=='2015_north':
+        if word=='north_2015':
             lonbegin,latbegin=[-165,79]
-        if word=='2020_north':
+        if word=='north_2020':
             lonbegin,latbegin=[160,79]
         
     ls=pd.read_csv(VF,header=None).iloc[:,1]
@@ -341,13 +346,13 @@ for fi in files:
             if i+s<xbegin+L and j+s<ybegin+W:
                 non=find_non_edge4_rightup(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
             
             v1,v2,v3,v4=i*width*high+(j-s)*high,(i+s)*width*high+(j-s)*high,(i+s)*width*high+j*high,i*width*high+j*high
             if i+s<xbegin+L and j-s>=ybegin:
                 non=find_non_edge4_rightdown(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
 
         if j2-j1==s:
             i=i1
@@ -356,14 +361,13 @@ for fi in files:
             if i+s<xbegin+L and j+s<ybegin+W:
                 non=find_non_edge4_upright(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
 
             v1,v2,v3,v4=(i-s)*width*high+j*high,i*width*high+j*high,i*width*high+(j+s)*high,(i-s)*width*high+(j+s)*high
             if i-s>=xbegin and j+s<ybegin+W:
                 non=find_non_edge4_upleft(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
 
         del(e[0])
-
     print('singularities:',centers)

@@ -3,9 +3,7 @@ Tracking the typhoon centers from vector field data
 rig: '2023sl' or '2023kn' means tracking typhoon Kanun or Saola
 '''
 import numpy as np
-import csv
 import pandas as pd 
-import collections
 from numpy import matrix
 from numpy.linalg import matrix_rank
 import networkx as nx
@@ -19,7 +17,6 @@ from scipy.linalg import lu
 from minBasis import minBasis
 from PPH import persHomo
 import timeit
-from openpyxl import load_workbook
 from math import pi,atan
 from pathlib import Path
 
@@ -192,7 +189,7 @@ def weight_point(listin):
         yi=yi+W[i]*ecy[i]
     return xi/Wsum,yi/Wsum
 
-def compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers):
+def compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers):
     flag=0
     V1=np.array([VF.iloc[v1,4],VF.iloc[v1,5],VF.iloc[v1,6]])
     V2=np.array([VF.iloc[v2,4],VF.iloc[v2,5],VF.iloc[v2,6]])
@@ -208,7 +205,10 @@ def compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers):
         bps.append((weight_point([v1,v2,v3,v4])))
         
         # the weight_point here has the coordinate of (latitude,longitude) according to the data format from CCMP
-        centers.append((round(eps*weight_point([v1,v2,v3,v4])[1]+lonbegin,2),round(eps*weight_point([v1,v2,v3,v4])[0]+latbegin,2)))
+        lat = round(eps * weight_point([v1, v2, v3, v4])[0] + latbegin, 2)
+        lon = round(eps * weight_point([v1, v2, v3, v4])[1] + lonbegin, 2)
+        center_tuple = (f"{lon}°E", f"{lat}°N")
+        centers.append(center_tuple)
 
 def VectorfieldtoDigraph_arc(VF,length,width,high,eps):
     VectorField=pd.read_csv(VF,header=None)
@@ -331,13 +331,13 @@ for fi in files:
             if i+s<xbegin+L and j+s<ybegin+W:
                 non=find_non_edge4_rightup(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
             
             v1,v2,v3,v4=i*width*high+(j-s)*high,(i+s)*width*high+(j-s)*high,(i+s)*width*high+j*high,i*width*high+j*high
             if i+s<xbegin+L and j-s>=ybegin:
                 non=find_non_edge4_rightdown(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
 
         if j2-j1==s:
             i=i1
@@ -346,13 +346,13 @@ for fi in files:
             if i+s<xbegin+L and j+s<ybegin+W:
                 non=find_non_edge4_upright(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
 
             v1,v2,v3,v4=(i-s)*width*high+j*high,i*width*high+j*high,i*width*high+(j+s)*high,(i-s)*width*high+(j+s)*high
             if i-s>=xbegin and j+s<ybegin+W:
                 non=find_non_edge4_upleft(i,j)
                 if len(non)==0:
-                    compute_sqar(v1,v2,v3,v4,bps,min_cyc,centers)
+                    compute_sqar(v1,v2,v3,v4,lonbegin,latbegin,bps,min_cyc,centers)
 
         del(e[0])
             
